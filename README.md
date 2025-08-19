@@ -51,16 +51,16 @@ User can
 ## System Captures
 
 #### Login
-![This is an image](/capture/home.PNG)
+![This is an image](/capture/home.png)
 
 #### Registration
-![This is an image](/capture/register.PNG)
+![This is an image](/capture/register.png)
 
 #### Profile page
-![This is an image](/capture/profile.PNG)
+![This is an image](/capture/profile.png)
 
 #### User Management
-![This is an image](/capture/user.PNG)
+![This is an image](/capture/user.png)
 
 #### Item Details
-![This is an image](/capture/info.PNG)
+![This is an image](/capture/info.png)
