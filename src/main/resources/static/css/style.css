@@ -1,0 +1,299 @@
+:root {
+    --bg-color: #003459;
+    --bg-color-dark: #00171f;
+    --hover-color: #004d7a;
+    --bg-focus: #002a3f;
+    --bg-form: #ffffff;
+    --bg-card: #f8f9fa;
+    --text-color: #00171f;
+    --text-light: #ffffff;
+}
+
+.btn, .btn:hover, .btn:active, .btn:focus {
+    color: var(--text-light);
+    background-color: var(--bg-color);
+    outline: var(--bg-color);
+    box-shadow: var(--bg-color);
+    border: var(--bg-color);
+}
+
+.btn:hover {
+    color: var(--text-light);
+    background-color: var(--hover-color);
+}
+
+.btn:focus, .btn:active {
+    color: var(--text-light);
+    background-color: var(--bg-focus);
+}
+
+.form-control, .form-control:focus, .form-select {
+    background-color: var(--bg-form);
+}
+
+.form-check-input:checked {
+    background-color: var(--bg-color);
+    border-color: var(--bg-color);
+}
+
+.form-control, .form-control:focus, .form-select {
+    border-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.border-bottom {
+    border-bottom: 1px solid var(--bg-color) !important;
+}
+
+.border-top {
+    border-bottom: 1px solid var(--bg-color) !important;
+}
+
+thead {
+    background-color: var(--bg-color);
+    color: var(--text-light);
+}
+
+tbody {
+    background-color: var(--bg-card);
+}
+
+* {
+    margin:0;
+    padding:0;
+    /*color: var(--text-color);*/
+    /*color: black;*/
+    /*border: 2px solid red;*/
+}
+
+.nav-link{
+    color: var(--text-color);
+}
+
+.nav-link:hover{
+    color: var(--bg-color);
+}
+
+.nav-link:focus, .nav-link:active{
+    color: var(--bg-focus);
+}
+
+/* Sidebar specific styling */
+.sidebar .nav-link {
+    color: var(--text-light) !important;
+    transition: color 0.3s ease;
+}
+
+.sidebar .nav-link:hover {
+    color: #ffffff !important;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+.sidebar .fs-5 {
+    color: var(--text-light);
+}
+
+.sidebar .border-bottom {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Logo styling */
+.sidebar .img-fluid {
+    max-width: 40px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 4px;
+    display: block;
+}
+
+.sidebar .img-fluid:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+/* Fallback icon styling */
+.sidebar .bi-search {
+    font-size: 1.5rem;
+    color: var(--text-light);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card {
+    background-color: var(--bg-card);
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.fs-15px {
+    font-size: 13px
+}
+
+/* Image upload styles */
+.image-preview {
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.file-upload-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.file-upload-wrapper input[type=file] {
+    position: absolute;
+    left: -9999px;
+}
+
+.file-upload-wrapper .file-upload-label {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: var(--bg-color);
+    color: var(--text-light);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.file-upload-wrapper .file-upload-label:hover {
+    background-color: var(--hover-color);
+}
+
+/* Filter controls styling */
+.form-select-sm {
+    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.alert-sm {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+}
+
+.badge {
+    font-size: 0.75rem;
+}
+
+/* Filter form styling */
+.filter-form {
+    background-color: var(--bg-card);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.filter-form .form-label {
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.25rem;
+}
+
+/* Date picker styling */
+input[type="date"] {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+/* Today button styling */
+#todayBtn {
+    border-color: var(--bg-color);
+    color: var(--bg-color);
+    transition: all 0.3s ease;
+}
+
+#todayBtn:hover {
+    background-color: var(--bg-color);
+    color: var(--text-light);
+    border-color: var(--bg-color);
+}
+
+#todayBtn:focus {
+    background-color: var(--bg-focus);
+    color: var(--text-light);
+    border-color: var(--bg-focus);
+    box-shadow: 0 0 0 0.2rem rgba(0, 52, 89, 0.25);
+}
+
+/* Date input validation styling */
+input[type="date"].is-valid {
+    border-color: #198754;
+    box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+}
+
+input[type="date"].is-invalid {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+/* Calendar icon styling */
+.calendar-icon {
+    transition: all 0.3s ease;
+    background-color: var(--bg-color);
+    color: var(--text-light);
+    border-color: var(--bg-color);
+}
+
+.calendar-icon:hover {
+    background-color: var(--hover-color);
+    color: var(--text-light);
+    transform: scale(1.05);
+}
+
+.calendar-icon:active {
+    background-color: var(--bg-focus);
+    transform: scale(0.95);
+}
+
+/* Date picker input validation */
+.date-picker.is-valid {
+    border-color: #198754;
+    box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+}
+
+.date-picker.is-invalid {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+/* Flatpickr customization */
+.flatpickr-calendar {
+    font-family: inherit;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.flatpickr-day.selected {
+    background-color: var(--bg-color);
+    border-color: var(--bg-color);
+}
+
+.flatpickr-day.selected:hover {
+    background-color: var(--hover-color);
+    border-color: var(--hover-color);
+}

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Lost/Found Item Report Form</title>
+    <!-- Flatpickr CSS and JS for date picker -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body>
+
+<!-- /* Content of this page will be decorated by the elements of layout.html (fragments/layout) */ -->
+<div layout:fragment="content" class="col"
+     th:with="text=${lostFoundItem['new']} ? 'Create' : 'Update'">
+    <h5 class="text-center p-2 m-3"
+        th:text="${text + ' Report for Your Lost/Found Item'}">Report Form</h5>
+    <div class="d-flex flex-column align-items-center justify-content-center mb-3">
+        <div class="card p-3" style="width: 30rem;">
+            <div class="card-body">
+                <form th:object="${lostFoundItem}" class="needs-validation"
+                      th:action="${lostFoundItem.id == null ? '/lostFound/new' : '/lostFound/edit/' + lostFoundItem.id}"
+                      method="post" enctype="multipart/form-data">
+                    <input type="hidden" th:field="*{id}" />
+                    <input type="hidden" th:field="*{createdBy}" />
+                    <input type="hidden" th:field="*{modifiedBy}" />
+                    <input type="hidden" th:field="*{version}" />
+                    <input type="hidden" th:field="*{user.id}" />
+                    <input type="hidden" th:field="*{imageFileName}" />
+
+                    <h6>Item Information</h6>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <select class="form-select form-select-sm" aria-label="Type" th:field="*{type}">
+                                <option th:each="typeValue : ${T(hyk.springframework.lostandfoundsystem.enums.Type).values()}"
+                                        th:value="${typeValue.name()}"
+                                        th:text="${typeValue.name()}">Type
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="col">
+                            <select class="form-select form-select-sm" aria-label="Category" th:field="*{category}">
+                                <option th:each="categoryValue : ${T(hyk.springframework.lostandfoundsystem.enums.Category).values()}"
+                                        th:value="${categoryValue.name()}"
+                                        th:text="${categoryValue.name()}">Category
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col input-group input-group-sm">
+                            <input type="text" class="form-control" th:field="*{title}" placeholder="Title" aria-label="Title">
+                            <span class="input-group-text"><i class="bi bi-card-heading"></i></span>
+                        </div>
+                        <span th:if="${#fields.hasErrors('title')}">
+                            <ul class="m-0">
+                                <li class="text-danger" th:each="err : ${#fields.errors('title')}" th:text="${err}"></li>
+                            </ul>
+                        </span>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col input-group input-group-sm">
+                            <input type="text" class="form-control date-picker" th:field="*{lostFoundDate}" 
+                                   placeholder="Lost/Found Date (YYYY-MM-DD)" aria-label="Lost/Found Date" 
+                                   th:value="${lostFoundItem.lostFoundDate != null ? #temporals.format(lostFoundItem.lostFoundDate, 'yyyy-MM-dd') : ''}">
+                            <span class="input-group-text calendar-icon" style="cursor: pointer;"><i class="bi bi-calendar3"></i></span>
+                        </div>
+                        <span th:if="${#fields.hasErrors('lostFoundDate')}">
+                            <ul class="m-0">
+                                <li class="text-danger" th:each="err : ${#fields.errors('lostFoundDate')}" th:text="${err}"></li>
+                            </ul>
+                        </span>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col input-group input-group-sm">
+                            <input type="text" class="form-control" th:field="*{lostFoundLocation}" placeholder="Lost/Found Location" aria-label="Lost/Found Location">
+                            <span class="input-group-text"><i class="bi bi-pin-map"></i></span>
+                        </div>
+                        <span th:if="${#fields.hasErrors('lostFoundLocation')}">
+                            <ul class="m-0">
+                                <li class="text-danger" th:each="err : ${#fields.errors('lostFoundLocation')}" th:text="${err}"></li>
+                            </ul>
+                        </span>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col input-group input-group-sm">
+                            <textarea class="form-control" th:field="*{description}" placeholder="Detail Description (Write other necessary information for lost/found item)" aria-label="Description" rows="3"></textarea>
+                        </div>
+                        <span th:if="${#fields.hasErrors('description')}">
+                            <ul class="m-0">
+                                <li class="text-danger" th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
+                            </ul>
+                        </span>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col input-group input-group-sm">
+                            <input type="file" class="form-control" name="image" accept="image/*" placeholder="Upload Image" aria-label="Upload Image" id="imageInput">
+                            <span class="input-group-text"><i class="bi bi-image"></i></span>
+                        </div>
+                        <span th:if="${#fields.hasErrors('imageFileName')}">
+                            <ul class="m-0">
+                                <li class="text-danger" th:each="err : ${#fields.errors('imageFileName')}" th:text="${err}"></li>
+                            </ul>
+                        </span>
+                    </div>
+                    
+                    <!-- Show current image if it exists -->
+                    <div class="row mb-3" th:if="${lostFoundItem.imageFileName != null and !lostFoundItem.imageFileName.isEmpty()}">
+                        <div class="col">
+                            <label class="form-label">Current Image:</label>
+                            <div>
+                                <img th:src="@{'/images/' + ${lostFoundItem.imageFileName}}" 
+                                     alt="Current Item Image" 
+                                     class="img-thumbnail" 
+                                     style="max-width: 200px; max-height: 200px;">
+                                <p class="text-muted small mt-1">Upload a new image to replace this one</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <script>
+                        document.getElementById('imageInput').addEventListener('change', function() {
+                            const file = this.files[0];
+                            if (file) {
+                                console.log('File selected:', file.name, 'Size:', file.size, 'Type:', file.type);
+                            }
+                        });
+                        
+                        document.querySelector('form').addEventListener('submit', function(e) {
+                            console.log('Form submitting to:', this.action);
+                            console.log('Form method:', this.method);
+                            console.log('Form enctype:', this.enctype);
+                            
+                            const fileInput = document.getElementById('imageInput');
+                            const file = fileInput.files[0];
+                            console.log('Form submitting with file:', file ? file.name : 'No file selected');
+                            
+                            // Log all form data
+                            const formData = new FormData(this);
+                            for (let [key, value] of formData.entries()) {
+                                if (key === 'image' && value instanceof File) {
+                                    console.log('Form field:', key, '= File:', value.name, 'Size:', value.size);
+                                } else {
+                                    console.log('Form field:', key, '=', value);
+                                }
+                            }
+                        });
+                    </script>
+
+                    <!-- Date picker initialization -->
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const dateInput = document.querySelector('.date-picker');
+                            const calendarIcon = document.querySelector('.calendar-icon');
+                            
+                            // Initialize Flatpickr date picker
+                            const fp = flatpickr(dateInput, {
+                                dateFormat: "Y-m-d",
+                                maxDate: "today",
+                                allowInput: true,
+                                clickOpens: false, // Don't open on input click
+                                wrap: false
+                            });
+                            
+                            // Open date picker when calendar icon is clicked
+                            calendarIcon.addEventListener('click', function() {
+                                fp.open();
+                            });
+                            
+                            // Add visual feedback when date is selected
+                            dateInput.addEventListener('change', function() {
+                                if (this.value) {
+                                    this.classList.add('is-valid');
+                                    this.classList.remove('is-invalid');
+                                } else {
+                                    this.classList.remove('is-valid');
+                                }
+                            });
+                            
+                            // Format the date display when the page loads
+                            if (dateInput.value) {
+                                dateInput.classList.add('is-valid');
+                            }
+                        });
+                    </script>
+
+                    <h6>Contact Information</h6>
+                    <div class="row mb-3">
+                        <div class="col input-group input-group-sm">
+                            <input type="text" class="form-control" th:field="*{reporterName}" placeholder="Full Name" aria-label="Full Name">
+                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                        </div>
+                        <span th:if="${#fields.hasErrors('reporterName')}">
+                            <ul class="m-0">
+                                <li class="text-danger" th:each="err : ${#fields.errors('reporterName')}" th:text="${err}"></li>
+                            </ul>
+                        </span>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col input-group input-group-sm">
+                            <input type="text" class="form-control" th:field="*{reporterPhoneNo}" placeholder="+1-555-123-4567" aria-label="Phone Number">
+                            <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                        </div>
+                        <span th:if="${#fields.hasErrors('reporterPhoneNo')}">
+                            <ul class="m-0">
+                                <li class="text-danger" th:each="err : ${#fields.errors('reporterPhoneNo')}" th:text="${err}"></li>
+                            </ul>
+                        </span>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col input-group input-group-sm">
+                            <input type="text" class="form-control" th:field="*{reporterEmail}" placeholder="E-mail" aria-label="E-mail">
+                            <span class="input-group-text">@</span>
+                        </div>
+                        <span th:if="${#fields.hasErrors('reporterEmail')}">
+                            <ul class="m-0">
+                                <li class="text-danger" th:each="err : ${#fields.errors('reporterEmail')}" th:text="${err}"></li>
+                            </ul>
+                        </span>
+                    </div>
+
+                    <div class="col">
+                        <button th:text="${text}" class="btn btn-success btn-sm w-100" type="submit">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

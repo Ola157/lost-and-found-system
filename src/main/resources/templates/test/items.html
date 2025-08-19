@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Test Items</title>
+</head>
+<body>
+    <h1>Test Items in Database</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Image File Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="item : ${items}">
+                <td th:text="${item.id}">ID</td>
+                <td th:text="${item.title}">Title</td>
+                <td th:text="${item.imageFileName}">Image File Name</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html> 

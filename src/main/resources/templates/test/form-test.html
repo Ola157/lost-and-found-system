@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Test Form</title>
+</head>
+<body>
+    <h1>Test Form Submission</h1>
+    
+    <form action="/test/form-submission" method="post" enctype="multipart/form-data">
+        <div>
+            <label>Title:</label>
+            <input type="text" name="title" value="Test Item">
+        </div>
+        <div>
+            <label>Type:</label>
+            <select name="type">
+                <option value="LOST">LOST</option>
+                <option value="FOUND">FOUND</option>
+            </select>
+        </div>
+        <div>
+            <label>Image:</label>
+            <input type="file" name="image" accept="image/*">
+        </div>
+        <button type="submit">Submit Test</button>
+    </form>
+    
+    <script>
+        document.querySelector('form').addEventListener('submit', function(e) {
+            console.log('Test form submitting to:', this.action);
+            const formData = new FormData(this);
+            for (let [key, value] of formData.entries()) {
+                if (key === 'image' && value instanceof File) {
+                    console.log('Form field:', key, '= File:', value.name, 'Size:', value.size);
+                } else {
+                    console.log('Form field:', key, '=', value);
+                }
+            }
+        });
+    </script>
+</body>
+</html> 
